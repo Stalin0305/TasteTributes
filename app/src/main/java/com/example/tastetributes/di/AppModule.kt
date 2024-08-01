@@ -1,0 +1,38 @@
+package com.example.tastetributes.di
+
+import android.content.Context
+import com.example.tastetributes.database.dao.UserDao
+import com.example.tastetributes.database.db.TasteTributesDatabase
+import com.example.tastetributes.utils.FirebaseAuthService
+import com.google.firebase.auth.FirebaseAuth
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+class AppModule {
+
+    @Singleton
+    @Provides
+    fun provideFireBaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
+    }
+
+    @Provides
+    fun provideFirebaseAuthService(@ApplicationContext context: Context): FirebaseAuthService {
+        return FirebaseAuthService(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTasteTributeDatabase(@ApplicationContext context: Context): TasteTributesDatabase {
+        return TasteTributesDatabase.invoke(context)
+    }
+
+    @Provides
+    fun provideUserDao(database: TasteTributesDatabase): UserDao = database.getUserInfoDao()
+}

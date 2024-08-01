@@ -3,13 +3,9 @@ package com.example.tastetributes.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import dagger.hilt.android.qualifiers.ApplicationContext
 
 object NetworkHelper {
-
-    @ApplicationContext
-    lateinit var context: Context
-    fun isConnectedToNetwork(): Boolean {
+    fun isConnectedToNetwork(context: Context): Boolean {
         val connectivityManager: ConnectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val isConnectedToMobileData =

@@ -71,12 +71,18 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation(Dependencies.hilt)
+    kapt(Dependencies.hiltCompiler)
 
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform(Dependencies.firebaseBom))
+    implementation(Dependencies.firebaseAnalytics)
     //Auth
-    implementation("com.google.firebase:firebase-auth")
+    implementation(Dependencies.firebaseAuth)
+
+    //Room
+    implementation(Dependencies.room)
+    annotationProcessor(Dependencies.roomCompiler)
+    kapt(Dependencies.roomCompiler)
+    implementation(Dependencies.roomKtx)
 }
