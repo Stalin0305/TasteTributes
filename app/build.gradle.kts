@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -66,4 +69,23 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    //Hilt
+    implementation(Dependencies.hilt)
+    kapt(Dependencies.hiltCompiler)
+
+    //Firebase
+    implementation(platform(Dependencies.firebaseBom))
+    implementation(Dependencies.firebaseAnalytics)
+    //Auth
+    implementation(Dependencies.firebaseAuth)
+
+    //Room
+    implementation(Dependencies.room)
+    annotationProcessor(Dependencies.roomCompiler)
+    kapt(Dependencies.roomCompiler)
+    implementation(Dependencies.roomKtx)
+
+    //
+    implementation(Dependencies.navigation)
 }
