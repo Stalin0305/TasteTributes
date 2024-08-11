@@ -37,9 +37,9 @@ import com.example.tastetributes.R
 //)
 
 val customFontFamily = FontFamily(
-    Font(resId = R.font.roboto_regular, weight = FontWeight.Normal),
-    Font(resId = R.font.roboto_medium, weight = FontWeight.Medium),
-    Font(resId = R.font.roboto_bold, weight = FontWeight.Bold)
+    Font(resId = R.font.josefinsans_regular, weight = FontWeight.Normal),
+    Font(resId = R.font.josefinsans_medium, weight = FontWeight.Medium),
+    Font(resId = R.font.josefinsans_bold, weight = FontWeight.Bold)
 )
 
 //data class ExpenseTrackerTypography(

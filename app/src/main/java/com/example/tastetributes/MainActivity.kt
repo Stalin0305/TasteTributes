@@ -3,6 +3,7 @@ package com.example.tastetributes
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val windowSizeClass = rememberWindowSizeClass()
+            enableEdgeToEdge()
             TasteTributeThemeContent(windowSizeClass = windowSizeClass)
         }
     }
@@ -70,7 +72,7 @@ class MainActivity : ComponentActivity() {
             observeNavigationCommand(navController)
 
             Scaffold { paddingValues ->
-                TasteTributeNavGraph(navController = navController, paddingValues)
+                TasteTributeNavGraph(navController = navController, paddingValues, navigationManager)
             }
         }
     }

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Taste Tributes</string>
+
+    <!-- onboarding screen   -->
+    <string name="taste_tributes">Taste Tributes</string>
+    <string name="get_cooking">Get Cooking</string>
+    <string name="onboarding_subtitle">Simple way to find Tasty Recipe</string>
+    <string name="onboarding_button_text">Start Cooking</string>
+
 </resources>

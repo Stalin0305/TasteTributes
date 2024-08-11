@@ -11,10 +11,11 @@ import com.example.tastetributes.onboarding.ui.views.OnBoardingScreen
 fun TasteTributeNavGraph(
     navController: NavHostController,
     paddingValues: PaddingValues,
+    navigationManager: NavigationManager,
 ) {
     NavHost(navController = navController, startDestination = NavigationCommand.Onboarding.route) {
         composable(NavigationCommand.Onboarding.route) {
-            OnBoardingScreen(paddingValues)
+            OnBoardingScreen(paddingValues, navigationManager = navigationManager)
         }
     }
 }

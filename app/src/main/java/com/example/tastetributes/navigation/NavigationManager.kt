@@ -17,9 +17,12 @@ class NavigationManager(private val scope: CoroutineScope) {
 
     val navCommand = _navCommand.asSharedFlow()
 
-    fun navigateTo(navCommandWithArgs: NavCommandWithArgs) {
+    fun navigateTo(navigationCommand: NavigationCommand, arguments: Any? = null) {
         scope.launch {
-            _navCommand.emit(navCommandWithArgs)
+            _navCommand.emit(NavCommandWithArgs(
+                navigationCommand = navigationCommand,
+                arguments = navigationCommand.withNavArgs(arguments)
+            ))
         }
     }
 
