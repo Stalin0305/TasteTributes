@@ -85,4 +85,7 @@ dependencies {
     annotationProcessor(Dependencies.roomCompiler)
     kapt(Dependencies.roomCompiler)
     implementation(Dependencies.roomKtx)
+
+    //
+    implementation(Dependencies.navigation)
 }
