@@ -4,6 +4,7 @@ object Dependencies  {
     private const val firebaseBOMVersion = "33.1.2"
     private const val roomVersion = "2.6.1"
     private const val navigationVersion = "2.7.7"
+    private const val hiltNavigationVersion = "1.2.0"
 
     //Dependencies
     const val hilt = "com.google.dagger:hilt-android:$hiltVersion"
@@ -15,6 +16,7 @@ object Dependencies  {
     const val roomCompiler = "androidx.room:room-compiler:$roomVersion"
     const val roomKtx = "androidx.room:room-ktx:$roomVersion"
     const val navigation = "androidx.navigation:navigation-compose:$navigationVersion"
+    const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:$hiltNavigationVersion"
 
 
 }

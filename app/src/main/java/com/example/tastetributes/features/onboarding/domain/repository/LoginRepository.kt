@@ -1,4 +1,4 @@
-package com.example.tastetributes.onboarding.domain.repository
+package com.example.tastetributes.features.onboarding.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 

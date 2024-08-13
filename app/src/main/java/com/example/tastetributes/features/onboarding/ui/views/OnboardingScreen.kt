@@ -1,4 +1,4 @@
-package com.example.tastetributes.onboarding.ui.views
+package com.example.tastetributes.features.onboarding.ui.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.tastetributes.R
 import com.example.tastetributes.customcomponents.CustomButton
+import com.example.tastetributes.navigation.NavigationCommand
 import com.example.tastetributes.navigation.NavigationManager
 import com.example.tastetributes.ui.theme.AppDimens
 import com.example.tastetributes.ui.theme.TasteTributesTheme
@@ -87,6 +88,7 @@ fun OnBoardingScreen(
                 CustomButton(
                     modifier = Modifier.fillMaxWidth(0.6f),
                     onButtonClick = {
+                        navigationManager.navigateTo(NavigationCommand.Login)
                     }
                 ) {
                     Text(

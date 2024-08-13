@@ -86,6 +86,7 @@ dependencies {
     kapt(Dependencies.roomCompiler)
     implementation(Dependencies.roomKtx)
 
-    //
+    //Navigation
     implementation(Dependencies.navigation)
+    implementation(Dependencies.hiltNavigation)
 }

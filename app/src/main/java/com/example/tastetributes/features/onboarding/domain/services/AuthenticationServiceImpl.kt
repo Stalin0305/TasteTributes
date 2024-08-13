@@ -1,6 +1,6 @@
-package com.example.tastetributes.onboarding.domain.services
+package com.example.tastetributes.features.onboarding.domain.services
 
-import com.example.tastetributes.onboarding.domain.models.UserDataModel
+import com.example.tastetributes.features.onboarding.domain.models.UserDataModel
 import com.example.tastetributes.utils.FirebaseAuthService
 import com.example.tastetributes.utils.Resource
 import kotlinx.coroutines.flow.Flow

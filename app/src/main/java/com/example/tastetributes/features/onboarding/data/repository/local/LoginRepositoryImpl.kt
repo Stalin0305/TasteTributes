@@ -1,10 +1,10 @@
-package com.example.tastetributes.onboarding.data.repository.local
+package com.example.tastetributes.features.onboarding.data.repository.local
 
 import com.example.tastetributes.database.dao.UserDao
 import com.example.tastetributes.database.entities.UserInfo
-import com.example.tastetributes.onboarding.domain.models.UserDataModel
-import com.example.tastetributes.onboarding.domain.repository.LoginRepository
-import com.example.tastetributes.onboarding.domain.services.AuthenticationService
+import com.example.tastetributes.features.onboarding.domain.models.UserDataModel
+import com.example.tastetributes.features.onboarding.domain.repository.LoginRepository
+import com.example.tastetributes.features.onboarding.domain.services.AuthenticationService
 import com.example.tastetributes.utils.Status
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -1,7 +1,7 @@
 package com.example.tastetributes.utils
 
 import android.content.Context
-import com.example.tastetributes.onboarding.domain.models.UserDataModel
+import com.example.tastetributes.features.onboarding.domain.models.UserDataModel
 import com.example.tastetributes.utils.Constants.EMPTY_STRING
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.qualifiers.ApplicationContext

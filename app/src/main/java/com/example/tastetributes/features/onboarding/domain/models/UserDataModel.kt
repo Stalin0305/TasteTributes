@@ -1,4 +1,4 @@
-package com.example.tastetributes.onboarding.domain.models
+package com.example.tastetributes.features.onboarding.domain.models
 
 import com.example.tastetributes.utils.Constants.EMPTY_STRING
 

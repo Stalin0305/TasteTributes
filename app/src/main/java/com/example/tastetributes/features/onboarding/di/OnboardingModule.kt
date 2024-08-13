@@ -1,7 +1,7 @@
-package com.example.tastetributes.onboarding.di
+package com.example.tastetributes.features.onboarding.di
 
-import com.example.tastetributes.onboarding.domain.services.AuthenticationService
-import com.example.tastetributes.onboarding.domain.services.AuthenticationServiceImpl
+import com.example.tastetributes.features.onboarding.domain.services.AuthenticationService
+import com.example.tastetributes.features.onboarding.domain.services.AuthenticationServiceImpl
 import com.example.tastetributes.utils.FirebaseAuthService
 import dagger.Module
 import dagger.Provides
