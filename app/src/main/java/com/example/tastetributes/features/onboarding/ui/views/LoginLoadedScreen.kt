@@ -64,13 +64,17 @@ fun LoginLoadedScreen(
                 onUserAction(LoginIntent.HandleEmailValueChange(it))
             },
             modifier = Modifier.padding(top = AppDimens.dimen.twentyFour),
-            placeholderText = stringResource(id = R.string.enter_your_email)
+            placeholderText = stringResource(id = R.string.enter_your_email),
+            isError = viewState.isEmailInvalid,
+            errorText = stringResource(id = R.string.error_text_email)
         )
         Spacer(modifier = Modifier.height(AppDimens.dimen.twentyFour))
         CustomTextField(
             label = stringResource(id = R.string.password),
             value = viewState.password,
-            onValueChange = {},
+            onValueChange = {
+                onUserAction(LoginIntent.HandlePasswordChangeIntent(it))
+            },
             placeholderText = stringResource(id = R.string.enter_your_password)
         )
         Spacer(modifier = Modifier.height(AppDimens.dimen.eight))
@@ -84,7 +88,11 @@ fun LoginLoadedScreen(
                 }
         )
         Spacer(modifier = Modifier.height(AppDimens.dimen.fortyEight))
-        CustomButton(onButtonClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
+        CustomButton(
+            onButtonClick = { /*TODO*/ },
+            modifier = Modifier.fillMaxWidth(),
+            isEnabled = viewState.isSignInButtonEnabled
+        ) {
             Text(
                 text = stringResource(id = R.string.sign_in),
                 textAlign = TextAlign.Center,
