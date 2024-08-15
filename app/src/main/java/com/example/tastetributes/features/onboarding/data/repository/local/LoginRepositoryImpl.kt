@@ -2,6 +2,7 @@ package com.example.tastetributes.features.onboarding.data.repository.local
 
 import com.example.tastetributes.database.dao.UserDao
 import com.example.tastetributes.database.entities.UserInfo
+import com.example.tastetributes.features.onboarding.domain.models.UserData
 import com.example.tastetributes.features.onboarding.domain.models.UserDataModel
 import com.example.tastetributes.features.onboarding.domain.repository.LoginRepository
 import com.example.tastetributes.features.onboarding.domain.services.AuthenticationService
@@ -25,33 +26,36 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun createNewUserWithEmailAndPassword(
         email: String,
         password: String,
-    ): Flow<Boolean> {
+    ): Flow<UserData?> {
         return flow {
             authenticationService.createNewAccount(email, password).collect {
                 when (it.status) {
                     Status.Success -> {
-                        emitCreateUserSuccess(it.data)
+                        emitCreateUserSuccess(it.data).collect {data ->
+                            emit(UserData(data = data, status = Status.Success))
+                        }
                     }
 
                     Status.Error -> {
-                        emit(false)
-                    }
-
-                    else -> {
-                        emit(false)
+                        emit(
+                            UserData(
+                                data = null,
+                                error = it.message ?: "Something went wrong",
+                                status = Status.Error
+                            )
+                        )
                     }
                 }
-
             }
         }
     }
 
-    private fun emitCreateUserSuccess(userDataModel: UserDataModel?): Flow<Boolean> {
+    private fun emitCreateUserSuccess(userDataModel: UserDataModel?): Flow<UserDataModel?> {
         return flow{
             getUserInfo(userDataModel)?.let {
                 userDao.addUser(it)
-                emit(true)
-            } ?: emit(false)
+                emit(userDataModel)
+            } ?: emit(userDataModel)
 
         }
     }

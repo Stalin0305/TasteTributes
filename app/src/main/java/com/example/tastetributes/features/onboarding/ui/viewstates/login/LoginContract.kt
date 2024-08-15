@@ -1,4 +1,4 @@
-package com.example.tastetributes.features.login.ui.viewstates
+package com.example.tastetributes.features.onboarding.ui.viewstates.login
 
 import com.example.tastetributes.foundation.NavEffect
 import com.example.tastetributes.foundation.UserIntent
@@ -25,6 +25,8 @@ sealed interface LoginIntent: UserIntent {
     ): LoginIntent
 
     data object LoadData: LoginIntent
+
+    data object HandleSignUpClicked: LoginIntent
 }
 
 
@@ -32,4 +34,6 @@ sealed interface LoginEffect: NavEffect {
     object NavigateBack: LoginEffect
 
     object NavigateToHomeScreen: LoginEffect
+
+    object NavigateToRegistrationScreen: LoginEffect
 }

@@ -37,11 +37,11 @@ fun OnBoardingScreen(
     paddingValues: PaddingValues,
     navigationManager: NavigationManager
 ) {
-    Box {
+    Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.onboarding_background),
             contentDescription = null,
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize()
         )
         Box(
@@ -66,7 +66,7 @@ fun OnBoardingScreen(
                 Spacer(modifier = Modifier.height(AppDimens.dimen.sixteen))
                 Text(
                     text = stringResource(id = R.string.taste_tributes),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold, color = Color.White)
                 )
             }
             Column(
@@ -77,12 +77,14 @@ fun OnBoardingScreen(
                     text = stringResource(id = R.string.get_cooking),
                     style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.Bold),
                     modifier = Modifier.fillMaxWidth(0.6f),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = Color.White,
                 )
                 Spacer(modifier = Modifier.height(AppDimens.dimen.twenty))
                 Text(
                     text = stringResource(id = R.string.onboarding_subtitle),
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.White,
                 )
                 Spacer(modifier = Modifier.height(AppDimens.dimen.fortyEight))
                 CustomButton(

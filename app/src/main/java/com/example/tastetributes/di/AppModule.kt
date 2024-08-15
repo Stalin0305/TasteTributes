@@ -26,8 +26,8 @@ class AppModule {
     }
 
     @Provides
-    fun provideFirebaseAuthService(@ApplicationContext context: Context): FirebaseAuthService {
-        return FirebaseAuthService(context)
+    fun provideFirebaseAuthService(@ApplicationContext context: Context, auth: FirebaseAuth): FirebaseAuthService {
+        return FirebaseAuthService(context, auth)
     }
 
     @Singleton

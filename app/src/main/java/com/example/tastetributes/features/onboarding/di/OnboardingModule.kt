@@ -1,7 +1,11 @@
 package com.example.tastetributes.features.onboarding.di
 
+import com.example.tastetributes.database.dao.UserDao
+import com.example.tastetributes.features.onboarding.data.repository.local.LoginRepositoryImpl
+import com.example.tastetributes.features.onboarding.domain.repository.LoginRepository
 import com.example.tastetributes.features.onboarding.domain.services.AuthenticationService
 import com.example.tastetributes.features.onboarding.domain.services.AuthenticationServiceImpl
+import com.example.tastetributes.features.onboarding.domain.usecases.CreateAccountUseCase
 import com.example.tastetributes.utils.FirebaseAuthService
 import dagger.Module
 import dagger.Provides
@@ -15,5 +19,20 @@ object OnboardingModule {
     @Provides
     fun providesAuthenticationService(firebaseAuthService: FirebaseAuthService): AuthenticationService {
         return AuthenticationServiceImpl(firebaseAuthService)
+    }
+
+    @Provides
+    fun provideLoginRepository(authenticationService: AuthenticationService, userDao: UserDao): LoginRepository {
+        return LoginRepositoryImpl(
+            authenticationService,
+            userDao
+        )
+    }
+
+    @Provides
+    fun provideCreateAccountUseCase(loginRepository: LoginRepository): CreateAccountUseCase {
+        return CreateAccountUseCase(
+            loginRepository
+        )
     }
 }

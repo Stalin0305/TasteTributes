@@ -1,10 +1,9 @@
-package com.example.tastetributes.features.login.ui.viewmodels
+package com.example.tastetributes.features.onboarding.ui.viewmodels
 
-import androidx.room.util.copy
-import com.example.tastetributes.features.login.ui.viewstates.LoginEffect
-import com.example.tastetributes.features.login.ui.viewstates.LoginIntent
-import com.example.tastetributes.features.login.ui.viewstates.LoginViewState
-import com.example.tastetributes.features.login.ui.viewstates.ViewState
+import com.example.tastetributes.features.onboarding.ui.viewstates.login.LoginEffect
+import com.example.tastetributes.features.onboarding.ui.viewstates.login.LoginIntent
+import com.example.tastetributes.features.onboarding.ui.viewstates.login.LoginViewState
+import com.example.tastetributes.features.onboarding.ui.viewstates.login.ViewState
 import com.example.tastetributes.foundation.MviViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -33,6 +32,10 @@ class LoginViewModel @Inject constructor(
                 emitViewState {
                     copy(loginViewState = LoginViewState.LoadedData("",""))
                 }
+            }
+
+            is LoginIntent.HandleSignUpClicked -> {
+                sendNavEffect(LoginEffect.NavigateToRegistrationScreen)
             }
         }
     }
