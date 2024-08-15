@@ -9,6 +9,9 @@ import com.example.tastetributes.features.onboarding.ui.viewstates.registration.
 import com.example.tastetributes.features.onboarding.ui.viewstates.registration.ViewState
 import com.example.tastetributes.foundation.MviViewModel
 import com.example.tastetributes.utils.Status
+import com.example.tastetributes.utils.isConfirmPasswordValid
+import com.example.tastetributes.utils.isEmailValid
+import com.example.tastetributes.utils.isPasswordValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,10 +41,14 @@ class RegistrationViewModel @Inject constructor(
                 emitViewState {
                     copy(
                         registrationViewState = currentState.copy(
-                            confirmPassword = intent.confirmPassword
+                            confirmPassword = intent.confirmPassword,
+                            isConfirmPasswordInvalid = intent.confirmPassword.isConfirmPasswordValid(
+                                currentState.password
+                            ).not(),
                         )
                     )
                 }
+                checkAllFieldsValidation()
             }
 
             is RegistrationIntent.HandleEmailChangedIntent -> {
@@ -50,10 +57,12 @@ class RegistrationViewModel @Inject constructor(
                 emitViewState {
                     copy(
                         registrationViewState = currentState.copy(
-                            email = intent.email
+                            email = intent.email,
+                            isEmailInvalid = intent.email.isEmailValid().not(),
                         )
                     )
                 }
+                checkAllFieldsValidation()
             }
 
             is RegistrationIntent.HandleNameChangedIntent -> {
@@ -62,10 +71,11 @@ class RegistrationViewModel @Inject constructor(
                 emitViewState {
                     copy(
                         registrationViewState = currentState.copy(
-                            name = intent.name
+                            name = intent.name,
                         )
                     )
                 }
+                checkAllFieldsValidation()
             }
 
             is RegistrationIntent.HandlePasswordChangedIntent -> {
@@ -74,21 +84,28 @@ class RegistrationViewModel @Inject constructor(
                 emitViewState {
                     copy(
                         registrationViewState = currentState.copy(
-                            password = intent.password
+                            password = intent.password,
+                            isPasswordInvalid = intent.password.isPasswordValid().not(),
+                            isConfirmPasswordInvalid = currentState.confirmPassword.isConfirmPasswordValid(
+                                intent.password
+                            ).not()
                         )
                     )
                 }
+                checkAllFieldsValidation()
             }
 
             RegistrationIntent.HandleRegistrationButtonClickedIntent -> {
                 val currentState =
                     currentState.registrationViewState as RegistrationViewState.DataLoaded
-                emitViewState {
-                    copy(
-                        registrationViewState = currentState.copy(isLoading = true)
-                    )
+                if (currentState.isSignUpButtonEnabled) {
+                    emitViewState {
+                        copy(
+                            registrationViewState = currentState.copy(isLoading = true)
+                        )
+                    }
+                    createNewAccount()
                 }
-                createNewAccount()
             }
 
             RegistrationIntent.HandleSignInButtonClickedIntent -> {
@@ -101,10 +118,11 @@ class RegistrationViewModel @Inject constructor(
                 emitViewState {
                     copy(
                         registrationViewState = currentState.copy(
-                            isTermsAccepted = intent.isChecked
+                            isTermsAccepted = intent.isChecked,
                         )
                     )
                 }
+                checkAllFieldsValidation()
             }
 
             RegistrationIntent.DismissToast -> {
@@ -165,5 +183,21 @@ class RegistrationViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun isButtonEnabled(): Boolean {
+        val currentState = currentState.registrationViewState as RegistrationViewState.DataLoaded
+        return !(currentState.isPasswordInvalid ||
+                currentState.isEmailInvalid || currentState.isConfirmPasswordInvalid ||
+                currentState.isTermsAccepted.not() || currentState.name.isBlank())
+    }
+
+    private fun checkAllFieldsValidation() {
+            val currentState = currentState.registrationViewState as RegistrationViewState.DataLoaded
+            emitViewState {
+                copy(registrationViewState = currentState.copy(
+                    isSignUpButtonEnabled = isButtonEnabled()
+                ))
+            }
     }
 }

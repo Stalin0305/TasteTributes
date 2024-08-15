@@ -30,6 +30,11 @@
     <string name="retype_password">Retype password</string>
     <string name="terms_and_conditions">Accept terms and conditions</string>
     <string name="already_a_member">Already a member?</string>
+    <string name="error_text_email">Please enter a valid email.</string>
+    <string name="error_text_password">Please enter a valid password between 8 and 15 characters.</string>
+    <string name="error_text_confirm_password">Both the passwords should match. Please try again.</string>
+
+
 
 
 

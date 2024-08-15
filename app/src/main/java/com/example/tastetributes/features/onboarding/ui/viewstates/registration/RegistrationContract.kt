@@ -21,7 +21,10 @@ sealed class RegistrationViewState() {
         val isLoading: Boolean = false,
         val toastMessage: String = EMPTY_STRING,
         val shouldShowToast: Boolean = false,
-
+        val isEmailInvalid: Boolean = false,
+        val isPasswordInvalid: Boolean = false,
+        val isConfirmPasswordInvalid: Boolean = false,
+        val isSignUpButtonEnabled: Boolean = false,
         ) : RegistrationViewState()
 }
 

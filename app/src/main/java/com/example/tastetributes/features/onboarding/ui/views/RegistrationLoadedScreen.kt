@@ -49,7 +49,7 @@ fun RegistrationLoadedScreen(
 ) {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
-    LaunchedEffect(key1 = viewState.shouldShowToast ) {
+    LaunchedEffect(key1 = viewState.shouldShowToast) {
         if (viewState.shouldShowToast) {
             Toast.makeText(context, viewState.toastMessage, Toast.LENGTH_LONG).show()
             onUserAction(RegistrationIntent.DismissToast)
@@ -90,7 +90,9 @@ fun RegistrationLoadedScreen(
             onValueChange = {
                 onUserAction(RegistrationIntent.HandleEmailChangedIntent(it))
             },
-            placeholderText = stringResource(id = R.string.enter_your_email)
+            placeholderText = stringResource(id = R.string.enter_your_email),
+            isError = viewState.isEmailInvalid,
+            errorText = stringResource(id = R.string.error_text_email)
         )
         CustomTextField(
             label = stringResource(id = R.string.password),
@@ -99,7 +101,9 @@ fun RegistrationLoadedScreen(
                 onUserAction(RegistrationIntent.HandlePasswordChangedIntent(it))
             },
             modifier = Modifier.padding(top = AppDimens.dimen.twentyFour),
-            placeholderText = stringResource(id = R.string.enter_your_password)
+            placeholderText = stringResource(id = R.string.enter_your_password),
+            isError = viewState.isPasswordInvalid,
+            errorText = stringResource(id = R.string.error_text_password)
         )
         Spacer(modifier = Modifier.height(AppDimens.dimen.twentyFour))
         CustomTextField(
@@ -108,7 +112,9 @@ fun RegistrationLoadedScreen(
             onValueChange = {
                 onUserAction(RegistrationIntent.HandleConfirmPasswordChangedIntent(it))
             },
-            placeholderText = stringResource(id = R.string.retype_password)
+            placeholderText = stringResource(id = R.string.retype_password),
+            isError = viewState.isConfirmPasswordInvalid,
+            errorText = stringResource(id = R.string.error_text_confirm_password)
         )
         Spacer(modifier = Modifier.height(AppDimens.dimen.eight))
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -130,7 +136,8 @@ fun RegistrationLoadedScreen(
         Spacer(modifier = Modifier.width(AppDimens.dimen.eight))
         CustomButton(
             onButtonClick = { onUserAction(RegistrationIntent.HandleRegistrationButtonClickedIntent) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isEnabled = viewState.isSignUpButtonEnabled,
         ) {
             Text(
                 text = stringResource(id = R.string.sign_up),
