@@ -75,6 +75,7 @@ fun LoginLoadedScreen(
             onValueChange = {
                 onUserAction(LoginIntent.HandlePasswordChangeIntent(it))
             },
+            isPasswordTextField = true,
             placeholderText = stringResource(id = R.string.enter_your_password)
         )
         Spacer(modifier = Modifier.height(AppDimens.dimen.eight))

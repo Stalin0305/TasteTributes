@@ -103,6 +103,7 @@ fun RegistrationLoadedScreen(
             modifier = Modifier.padding(top = AppDimens.dimen.twentyFour),
             placeholderText = stringResource(id = R.string.enter_your_password),
             isError = viewState.isPasswordInvalid,
+            isPasswordTextField = true,
             errorText = stringResource(id = R.string.error_text_password)
         )
         Spacer(modifier = Modifier.height(AppDimens.dimen.twentyFour))
@@ -112,6 +113,7 @@ fun RegistrationLoadedScreen(
             onValueChange = {
                 onUserAction(RegistrationIntent.HandleConfirmPasswordChangedIntent(it))
             },
+            isPasswordTextField = true,
             placeholderText = stringResource(id = R.string.retype_password),
             isError = viewState.isConfirmPasswordInvalid,
             errorText = stringResource(id = R.string.error_text_confirm_password)
