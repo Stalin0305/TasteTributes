@@ -5,7 +5,7 @@ import com.example.tastetributes.features.onboarding.domain.models.UserDataModel
 import kotlinx.coroutines.flow.Flow
 
 interface LoginRepository {
-    suspend fun loginWithEmailAndPassword(email: String, password: String)
+    suspend fun loginWithEmailAndPassword(email: String, password: String): Flow<UserData?>
 
     suspend fun loginWithGoogleSignIn()
 

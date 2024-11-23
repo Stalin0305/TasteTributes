@@ -17,6 +17,7 @@ sealed class LoginViewState: ViewState {
         val password: String = EMPTY_STRING,
         val isSignInButtonEnabled: Boolean = false,
         val isEmailInvalid: Boolean = false,
+        val isLoading: Boolean = false,
     ): LoginViewState()
 }
 

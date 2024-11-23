@@ -89,7 +89,7 @@ fun LoginLoadedScreen(
         )
         Spacer(modifier = Modifier.height(AppDimens.dimen.fortyEight))
         CustomButton(
-            onButtonClick = { /*TODO*/ },
+            onButtonClick = { onUserAction(LoginIntent.HandleSignInInButtonIntent) },
             modifier = Modifier.fillMaxWidth(),
             isEnabled = viewState.isSignInButtonEnabled
         ) {

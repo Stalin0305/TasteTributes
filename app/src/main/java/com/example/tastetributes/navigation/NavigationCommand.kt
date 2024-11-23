@@ -12,6 +12,7 @@ sealed class NavigationCommand(
         private const val popBackStackRoute = "pop_back_stack_route"
         private const val loginRoute = "login_route"
         private const val registrationRoute = "registration_route"
+        private const val homeScreenRoute = "home_screen_route"
     }
 
     data object PopBackStack: NavigationCommand(
@@ -28,6 +29,10 @@ sealed class NavigationCommand(
 
     data object Registration: NavigationCommand(
         route = registrationRoute
+    )
+
+    data object HomeScreen: NavigationCommand(
+        route = homeScreenRoute
     )
 
     fun withNavArgs(vararg args: Any?): String {

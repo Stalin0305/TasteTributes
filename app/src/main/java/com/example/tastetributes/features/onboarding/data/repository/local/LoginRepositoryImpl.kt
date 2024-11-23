@@ -2,6 +2,8 @@ package com.example.tastetributes.features.onboarding.data.repository.local
 
 import com.example.tastetributes.database.dao.UserDao
 import com.example.tastetributes.database.entities.UserInfo
+import com.example.tastetributes.features.onboarding.data.mappers.toDomain
+import com.example.tastetributes.features.onboarding.data.models.UserResponseModel
 import com.example.tastetributes.features.onboarding.domain.models.UserData
 import com.example.tastetributes.features.onboarding.domain.models.UserDataModel
 import com.example.tastetributes.features.onboarding.domain.repository.LoginRepository
@@ -15,8 +17,31 @@ class LoginRepositoryImpl @Inject constructor(
     private val authenticationService: AuthenticationService,
     private val userDao: UserDao,
 ) : LoginRepository {
-    override suspend fun loginWithEmailAndPassword(email: String, password: String) {
-        TODO("Not yet implemented")
+    override suspend fun loginWithEmailAndPassword(
+        email: String,
+        password: String,
+    ): Flow<UserData?> {
+        return flow {
+            emit(UserData(status = Status.Loading, data = null))
+            authenticationService.login(email, password).collect { result ->
+                if (result.isSuccess) {
+                    emitCreateUserSuccess(result.getOrNull()).collect { data ->
+                        getUserInfo(data)?.let {
+                            userDao.addUser(it)
+                        }
+                        emit(UserData(data = data, status = Status.Success))
+                    }
+                } else {
+                    emit(
+                        UserData(
+                            data = null,
+                            error = result.exceptionOrNull()?.message ?: "Something went wrong",
+                            status = Status.Error
+                        )
+                    )
+                }
+            }
+        }
     }
 
     override suspend fun loginWithGoogleSignIn() {
@@ -28,35 +53,31 @@ class LoginRepositoryImpl @Inject constructor(
         password: String,
     ): Flow<UserData?> {
         return flow {
-            authenticationService.createNewAccount(email, password).collect {
-                when (it.status) {
-                    Status.Success -> {
-                        emitCreateUserSuccess(it.data).collect {data ->
-                            emit(UserData(data = data, status = Status.Success))
+            emit(UserData(status = Status.Loading, data = null))
+            authenticationService.createNewAccount(email, password).collect { result ->
+                if (result.isSuccess) {
+                    emitCreateUserSuccess(result.getOrNull()).collect { data ->
+                        getUserInfo(data)?.let {
+                            userDao.addUser(it)
                         }
+                        emit(UserData(data = data, status = Status.Success))
                     }
-
-                    Status.Error -> {
-                        emit(
-                            UserData(
-                                data = null,
-                                error = it.message ?: "Something went wrong",
-                                status = Status.Error
-                            )
+                } else {
+                    emit(
+                        UserData(
+                            data = null,
+                            error = result.exceptionOrNull()?.message ?: "Something went wrong",
+                            status = Status.Error
                         )
-                    }
+                    )
                 }
             }
         }
     }
 
-    private fun emitCreateUserSuccess(userDataModel: UserDataModel?): Flow<UserDataModel?> {
-        return flow{
-            getUserInfo(userDataModel)?.let {
-                userDao.addUser(it)
-                emit(userDataModel)
-            } ?: emit(userDataModel)
-
+    private fun emitCreateUserSuccess(userDataModel: UserResponseModel?): Flow<UserDataModel?> {
+        return flow {
+            emit(userDataModel?.toDomain())
         }
     }
 
@@ -70,3 +91,4 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 }
+

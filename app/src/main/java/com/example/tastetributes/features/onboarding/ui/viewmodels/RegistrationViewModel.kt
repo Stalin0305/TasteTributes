@@ -171,6 +171,16 @@ class RegistrationViewModel @Inject constructor(
                                 )
                             }
                         }
+
+                        Status.Loading -> {
+                            emitViewState {
+                                copy(
+                                    registrationViewState = currentState.copy(
+                                        isLoading = false,
+                                    )
+                                )
+                            }
+                        }
                     }
                 } ?: emitViewState {
                     copy(

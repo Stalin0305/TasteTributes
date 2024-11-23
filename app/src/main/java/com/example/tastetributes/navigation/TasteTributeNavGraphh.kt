@@ -1,6 +1,9 @@
 package com.example.tastetributes.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,6 +27,7 @@ fun TasteTributeNavGraph(
         onboardingScreen(paddingValues, navigationManager)
         loginScreen(paddingValues, navigationManager)
         registrationScreen(paddingValues, navigationManager)
+        homeScreen(paddingValues, navigationManager)
     }
 }
 
@@ -60,5 +64,14 @@ fun NavGraphBuilder.registrationScreen(paddingValues: PaddingValues, navigationM
             viewState = viewState,
             navEffect = navEffect
         )
+    }
+}
+
+fun NavGraphBuilder.homeScreen(paddingValues: PaddingValues, navigationManager: NavigationManager) {
+    composable(NavigationCommand.HomeScreen.route) {
+        Scaffold {
+            Log.d("",it.toString())
+            Text(text = "Hello")
+        }
     }
 }

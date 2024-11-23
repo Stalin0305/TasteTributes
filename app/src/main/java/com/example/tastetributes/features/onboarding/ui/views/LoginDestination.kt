@@ -28,7 +28,9 @@ fun LoginDestination(
     fun handleNavigation(navEffect: LoginEffect) {
         when (navEffect) {
             is LoginEffect.NavigateBack -> {}
-            is LoginEffect.NavigateToHomeScreen -> {}
+            is LoginEffect.NavigateToHomeScreen -> {
+                navigationManager.navigateTo(NavigationCommand.HomeScreen)
+            }
             is LoginEffect.NavigateToRegistrationScreen -> {
                 navigationManager.navigateTo(NavigationCommand.Registration)
             }
