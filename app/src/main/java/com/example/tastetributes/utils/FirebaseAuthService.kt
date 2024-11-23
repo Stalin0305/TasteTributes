@@ -36,7 +36,7 @@ class FirebaseAuthService @Inject constructor(
                         )
                         emit(Result.success(userInfo))
                     } else {
-                        emit(Result.failure(Exception( "Failed to create account")))
+                        emit(Result.failure(Exception("Failed to create account")))
                     }
                 } catch (e: Exception) {
                     emit(Result.failure(Exception(e.localizedMessage)))
@@ -44,7 +44,9 @@ class FirebaseAuthService @Inject constructor(
             } else {
                 emit(Result.failure(Exception("Please check your internet connection")))
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.IO).catch {
+            emit(Result.failure(Exception(it.localizedMessage)))
+        }
     }
 
     suspend fun login(email: String, password: String): Flow<Result<UserResponseModel>> {
@@ -69,13 +71,13 @@ class FirebaseAuthService @Inject constructor(
                         emit(Result.failure(Exception("Failed to fetch login Details")))
                     }
                 } catch (e: Exception) {
-                    emit(Result.failure(Exception( e.localizedMessage)))
+                    emit(Result.failure(Exception(e.localizedMessage)))
                 }
             } else {
                 emit(Result.failure(Exception("Please check your internet connection")))
             }
-        }.catch {
-            emit(Result.failure(Exception( it.localizedMessage)))
+        }.flowOn(Dispatchers.IO).catch {
+            emit(Result.failure(Exception(it.localizedMessage)))
         }
     }
 }
