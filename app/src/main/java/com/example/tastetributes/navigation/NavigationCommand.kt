@@ -8,16 +8,31 @@ sealed class NavigationCommand(
 ) {
 
     companion object {
-        const val onBoardingRoute = "on_boarding_route"
-        const val popBackStackRoute = "pop_back_stack_route"
+        private const val onBoardingRoute = "on_boarding_route"
+        private const val popBackStackRoute = "pop_back_stack_route"
+        private const val loginRoute = "login_route"
+        private const val registrationRoute = "registration_route"
+        private const val homeScreenRoute = "home_screen_route"
     }
 
-    object PopBackStack: NavigationCommand(
+    data object PopBackStack: NavigationCommand(
         route = popBackStackRoute
     )
 
-    object Onboarding: NavigationCommand(
+    data object Onboarding: NavigationCommand(
         route = onBoardingRoute
+    )
+
+    data object Login: NavigationCommand(
+        route = loginRoute
+    )
+
+    data object Registration: NavigationCommand(
+        route = registrationRoute
+    )
+
+    data object HomeScreen: NavigationCommand(
+        route = homeScreenRoute
     )
 
     fun withNavArgs(vararg args: Any?): String {

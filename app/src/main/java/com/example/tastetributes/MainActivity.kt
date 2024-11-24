@@ -71,6 +71,8 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             observeNavigationCommand(navController)
 
+
+
             Scaffold { paddingValues ->
                 TasteTributeNavGraph(navController = navController, paddingValues, navigationManager)
             }

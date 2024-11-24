@@ -16,6 +16,7 @@ import com.example.tastetributes.ui.theme.rememberWindowSizeClass
 fun CustomButton(
     modifier: Modifier = Modifier,
     onButtonClick: () -> Unit,
+    isEnabled: Boolean = true,
     content: @Composable RowScope.() -> Unit,
 ) {
     Button(
@@ -25,6 +26,7 @@ fun CustomButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = primaryLight
         ),
+        enabled = isEnabled,
         content = content
     )
 }
