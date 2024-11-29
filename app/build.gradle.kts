@@ -94,4 +94,6 @@ dependencies {
 //    testImplementation(Dependencies.mockitoInline)
     testImplementation(Dependencies.coroutineTest)
     testImplementation("io.mockk:mockk:1.12.4")
+
+    implementation("com.google.accompanist:accompanist-permissions:0.36.0")
 }
