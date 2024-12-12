@@ -8,6 +8,7 @@ object Dependencies  {
     private const val mockitoVersion = "5.12.0'"
     private const val mockitoInlineVersion = "5.2.0"
     private const val coroutineTestVersion = "1.9.0"
+    private const val dataStoreVersion = "1.1.1"
 
     //Dependencies
     const val hilt = "com.google.dagger:hilt-android:$hiltVersion"
@@ -23,4 +24,5 @@ object Dependencies  {
     const val mockito = "org.mockito:mockito-core:${mockitoVersion}"
     const val mockitoInline = "org.mockito:mockito-inline:$mockitoInlineVersion"
     const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion"
+    const val dataStore = "androidx.datastore:datastore-preferences:$dataStoreVersion"
 }

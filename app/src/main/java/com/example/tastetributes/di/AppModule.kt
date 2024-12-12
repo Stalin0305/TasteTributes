@@ -3,6 +3,7 @@ package com.example.tastetributes.di
 import android.content.Context
 import com.example.tastetributes.database.dao.UserDao
 import com.example.tastetributes.database.db.TasteTributesDatabase
+import com.example.tastetributes.datastore.DataStoreHelper
 import com.example.tastetributes.navigation.NavigationManager
 import com.example.tastetributes.utils.FirebaseAuthService
 import com.google.firebase.auth.FirebaseAuth
@@ -43,4 +44,10 @@ class AppModule {
     fun providesNavigationManager(): NavigationManager {
         return NavigationManager(CoroutineScope(Dispatchers.Main))
     }
+
+    @Singleton
+    @Provides
+    fun provideDataStoreHelper(
+        @ApplicationContext context: Context
+    ): DataStoreHelper = DataStoreHelper(context)
 }

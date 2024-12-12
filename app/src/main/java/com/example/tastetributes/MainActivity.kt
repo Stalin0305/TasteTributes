@@ -6,18 +6,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.tastetributes.datastore.DataStoreHelper
 import com.example.tastetributes.navigation.NavigationCommand
 import com.example.tastetributes.navigation.NavigationManager
 import com.example.tastetributes.navigation.TasteTributeNavGraph
@@ -28,7 +33,11 @@ import com.example.tastetributes.ui.theme.WindowSizeClass
 import com.example.tastetributes.ui.theme.rememberWindowSizeClass
 import com.example.tastetributes.utils.HandlePermissions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,8 +46,21 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var navigationManager: NavigationManager
 
+    @Inject
+    lateinit var dataStoreHelper: DataStoreHelper
+
+
+    private val  mainActivityViewModel: MainActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashscreen = installSplashScreen()
+        var keepSplashScreen = true
         super.onCreate(savedInstanceState)
+        splashscreen.setKeepOnScreenCondition { keepSplashScreen }
+        lifecycleScope.launch {
+            delay(5000)
+            keepSplashScreen = false
+        }
         setContent {
             val windowSizeClass = rememberWindowSizeClass()
             enableEdgeToEdge()
@@ -71,14 +93,38 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(PaddingValues())
             }
 
+            val scope = rememberCoroutineScope()
+            val startDestinationRoute = remember {
+                mutableStateOf(NavigationCommand.Onboarding.route)
+            }
+
             val navController = rememberNavController()
             observeNavigationCommand(navController)
+
+            LaunchedEffect(Unit) {
+                val isLoggedIn = withContext(Dispatchers.IO) {
+                    mainActivityViewModel.isLoggedIn()
+                }
+                if (isLoggedIn) {
+                    navController.navigate(NavigationCommand.HomeScreen.route) {
+                        popUpTo(NavigationCommand.Onboarding.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            }
 
 
 
             Scaffold { paddingValues ->
-                TasteTributeNavGraph(navController = navController, paddingValues, navigationManager)
+                TasteTributeNavGraph(
+                    navController = navController,
+                    paddingValues,
+                    navigationManager,
+                    startDestinationRoute
+                )
             }
+
         }
     }
 

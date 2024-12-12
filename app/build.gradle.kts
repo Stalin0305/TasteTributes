@@ -96,4 +96,10 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.4")
 
     implementation("com.google.accompanist:accompanist-permissions:0.36.0")
+
+    //Data store
+    implementation(Dependencies.dataStore)
+
+    //Splash
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

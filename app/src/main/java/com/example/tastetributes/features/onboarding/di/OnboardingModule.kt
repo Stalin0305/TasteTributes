@@ -1,6 +1,7 @@
 package com.example.tastetributes.features.onboarding.di
 
 import com.example.tastetributes.database.dao.UserDao
+import com.example.tastetributes.datastore.DataStoreHelper
 import com.example.tastetributes.features.onboarding.data.repository.local.LoginRepositoryImpl
 import com.example.tastetributes.features.onboarding.domain.repository.LoginRepository
 import com.example.tastetributes.features.onboarding.domain.services.AuthenticationService
@@ -22,10 +23,14 @@ object OnboardingModule {
     }
 
     @Provides
-    fun provideLoginRepository(authenticationService: AuthenticationService, userDao: UserDao): LoginRepository {
+    fun provideLoginRepository(
+        authenticationService: AuthenticationService, userDao: UserDao,
+        dataStoreHelper: DataStoreHelper,
+    ): LoginRepository {
         return LoginRepositoryImpl(
             authenticationService,
-            userDao
+            userDao,
+            dataStoreHelper
         )
     }
 

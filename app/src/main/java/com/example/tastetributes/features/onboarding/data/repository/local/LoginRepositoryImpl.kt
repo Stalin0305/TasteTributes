@@ -2,6 +2,7 @@ package com.example.tastetributes.features.onboarding.data.repository.local
 
 import com.example.tastetributes.database.dao.UserDao
 import com.example.tastetributes.database.entities.UserInfo
+import com.example.tastetributes.datastore.DataStoreHelper
 import com.example.tastetributes.features.onboarding.data.mappers.toDomain
 import com.example.tastetributes.features.onboarding.data.models.UserResponseModel
 import com.example.tastetributes.features.onboarding.domain.models.UserData
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class LoginRepositoryImpl @Inject constructor(
     private val authenticationService: AuthenticationService,
     private val userDao: UserDao,
+    private val dataStoreHelper: DataStoreHelper,
 ) : LoginRepository {
     override suspend fun loginWithEmailAndPassword(
         email: String,
@@ -29,6 +31,7 @@ class LoginRepositoryImpl @Inject constructor(
                         getUserInfo(data)?.let {
                             userDao.addUser(it)
                         }
+                        dataStoreHelper.saveToDataStore(DataStoreHelper.IS_LOGGED_IN, true)
                         emit(UserData(data = data, status = Status.Success))
                     }
                 } else {
@@ -60,6 +63,7 @@ class LoginRepositoryImpl @Inject constructor(
                         getUserInfo(data)?.let {
                             userDao.addUser(it)
                         }
+                        dataStoreHelper.saveToDataStore(DataStoreHelper.IS_LOGGED_IN, true)
                         emit(UserData(data = data, status = Status.Success))
                     }
                 } else {
